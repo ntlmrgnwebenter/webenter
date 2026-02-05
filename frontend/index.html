@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WebEnter - Création de sites internet professionnels. Packages Express et Pro pour développer votre présence en ligne. Livraison rapide, support client 24/7.">
+    <meta name="keywords" content="création site internet, agence web, site professionnel, webdesign, développement web, e-commerce, SEO">
+    <meta name="author" content="WebEnter">
+    <meta property="og:title" content="WebEnter - Créez votre site internet professionnel">
+    <meta property="og:description" content="Packages Express et Pro pour créer votre site internet. Livraison rapide, design moderne, support client.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://webenter.fr">
+    <meta property="og:image" content="https://webenter.fr/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="WebEnter - Création de sites internet">
+    <meta name="twitter:description" content="Packages Express et Pro pour votre site professionnel">
+    <title>WebEnter - Création de Sites Internet Professionnels | Packages Express & Pro</title>
+    <link rel="canonical" href="https://webenter.fr">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f9f9f9;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .btn-login {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-login:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 14px 30px;
+            border: 2px solid white;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        /* ===== PACKAGES SECTION ===== */
+        .packages-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 60px;
+            color: #2d3748;
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .package-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .package-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .package-name {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .package-price {
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+
+        .package-price .currency {
+            font-size: 0.6em;
+        }
+
+        .package-content {
+            padding: 40px;
+        }
+
+        .features-list {
+            margin: 30px 0;
+        }
+
+        .feature {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 18px;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .feature-icon {
+            color: #667eea;
+            font-size: 1.4em;
+            margin-right: 15px;
+            min-width: 30px;
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .feature-title {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+
+        .feature-desc {
+            font-size: 0.9em;
+            color: #718096;
+        }
+
+        .package-cta {
+            text-align: center;
+            padding-top: 30px;
+        }
+
+        .btn-package {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 14px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.05em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn-package:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        /* ===== DETAILED FEATURES ===== */
+        .detailed-features {
+            background: white;
+            padding: 60px 20px;
+            margin: 60px 0;
+            border-radius: 15px;
+        }
+
+        .detailed-features h3 {
+            color: #2d3748;
+            font-size: 2em;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .comparison-table {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .comparison-table th {
+            background: #f7fafc;
+            font-weight: 700;
+            color: #2d3748;
+        }
+
+        .comparison-table tr:hover {
+            background: #f9f9f9;
+        }
+
+        .feature-check {
+            color: #48bb78;
+            font-size: 1.3em;
+        }
+
+        .feature-cross {
+            color: #fc8181;
+            font-size: 1.3em;
+        }
+
+        /* ===== BENEFITS SECTION ===== */
+        .benefits-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .benefit-card {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .benefit-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .benefit-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        /* ===== PROCESS SECTION ===== */
+        .process-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .step {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+
+        .step h3 {
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        /* ===== FAQ SECTION ===== */
+        .faq-section {
+            background: white;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .faq-item {
+            background: #f7fafc;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            color: #2d3748;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            margin-top: 15px;
+            color: #4a5568;
+            display: none;
+        }
+
+        .faq-answer.open {
+            display: block;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #2d3748;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 15px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-section a {
+            color: #cbd5e0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #4a5568;
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            .section-title {
+                font-size: 1.8em;
+            }
+
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+
+        /* ===== STRUCTURED DATA =====  */
+        script[type="application/ld+json"] {
+            display: none;
+        }
+
+        .breadcrumb {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== STRUCTURED DATA FOR SEO ===== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "WebEnter",
+        "description": "Agence de création de sites internet professionnels",
+        "url": "https://webenter.fr",
+        "telephone": "0775794342",
+        "email": "n.marignier.webenter@gmail.com",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Albertville",
+            "addressCountry": "FR"
+        },
+        "priceRange": "€€",
+        "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "EUR",
+            "offers": [
+                {
+                    "@type": "Offer",
+                    "name": "Pack Express",
+                    "price": "49",
+                    "description": "Site internet professionnel complet"
+                },
+                {
+                    "@type": "Offer",
+                    "name": "Pack Pro",
+                    "price": "99",
+                    "description": "Site avec e-commerce et fonctionnalités avancées"
+                }
+            ]
+        }
+    }
+    </script>
+
+    <!-- ===== HEADER ===== -->
+    <header>
+    <div class="header-content">
+        <a href="/" class="logo">🚀 WebEnter</a>
+        <nav class="nav-links">
+            <a href="#packages">Packages</a>
+            <a href="#process">Processus</a>
+            <a href="#faq">FAQ</a>
+            <a href="/admin/login" class="btn-login">🔐 Admin</a>
+            <a href="/client/login" class="btn-login">👤 Connexion Client</a>
+        </nav>
+    </div>
+    </header>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Créez Votre Site Internet Professionnel</h1>
+            <p>WebEnter propose des solutions complètes et abordables pour développer votre présence en ligne. Design moderne, livraison rapide, support client 24/7.</p>
+            <div class="cta-buttons">
+                <a href="/client/register" class="btn-primary">📝 Créer un Compte</a>
+                <a href="#packages" class="btn-secondary">Voir les Packages</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MAIN PACKAGES ===== -->
+    <section id="packages" class="packages-section">
+        <h2 class="section-title">Nos Packages</h2>
+
+        <div class="packages-grid">
+            <!-- ===== PACKAGE EXPRESS ===== -->
+            <div class="package-card">
+                <div class="package-header">
+                    <div class="package-name">📦 Express</div>
+                    <div class="package-price"><span class="currency">€</span>49</div>
+                </div>
+                <div class="package-content">
+                    <h3 style="color: #667eea; text-align: center; margin-bottom: 20px;">Parfait pour démarrer</h3>
+
+                    <div class="features-list">
+                        <div class="feature">
+                            <div class="feature-icon">✨</div>
+                            <div class="feature-text">
+                                <div class="feature-title">Design Responsive</div>
+                                <div class="feature-desc">Site adapté à tous les appareils (mobile, tablette, desktop)</div>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">📄</div>
+                            <div class="feature-text">
+                                <div class="feature-title">5 Pages</div>
+                                <div class="feature-desc">Accueil, À propos, Services, Contact, Blog (1 article)</div>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">🔍</div>
+                            <div class="feature-text">
+                                <div class="feature-title">Optimisation SEO Basique</div>
+                                <div class="feature-desc">Meta tags, structure correcte, sitemap.xml</div>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">🔒</div>
+                            <div class="feature-text">
+                                <div class="feature-title">SSL/HTTPS</div>
+                                <div class="feature-desc">Sécurité maximale pour votre site</div>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">📧</div>
+                            <div class="feature-text">
+                                <div class="feature-title">Formulaire de Contact</div>
+                                <div class="feature-desc">Recevez les messages directement par email</div>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">⚡</div>
+                            <div class="feature-text">
+                                <div class="feature-title">Performance Optimisée</div>
+                                <div class="feature-desc">Temps de chargement rapide</div>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">📊</div>
+                            <div class="feature-text">
+                                <div class="feature-title">Google Analytics</div>
+                                <div class="feature-desc">Suivez vos visiteurs et conversions</div>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">🎨</div>
+                            <div class="feature-text">
+                                <div class="feature-title">Personnalisation</div>
+                                <div class="feature-desc">Couleurs, logo et identité visuelle</div>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">📱</div>
+                            <div class="feature-text">
+                                <div class="feature-title">Application Mobile</div>
+                                <div class="feature-desc">Design adapté smartphone et tablette</div>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">🚀</div>
+                            <div class="feature-text">
+                                <div class="feature-title">Livraison Rapide</div>
+                                <div class="feature-desc">3 à 5 jours de délai</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="package-cta">
+                        <button class="btn-package" onclick="goToOrder()">Commander Express</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== PACKAGE PRO ===== -->
+            <div class="package-card" style="border: 3px solid #667eea;">
+                <div class="package-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); position: relative;">
+                    <div style="position: absolute; top: -15px; right: 20px; background: #ff6b6b; color: white; padding: 5px 15px; border-radius: 20px; font-weight: 600; font-size: 0.85em;">⭐ POPULAIRE</div>
+                    <div class="package-name">🏆 Pro</div>
+                    <div class="package-price"><span class="currency">€</span>99</div>
+                </div>
+                <div class="package-content">
+                    <h3 style="color: #667eea; text-align: center; margin-bottom: 20px;">Maximum de fonctionnalités</h3>
+
+                    <div class="features-list">
+                        <div class="feature">
+                            <div class="feature-icon">✨</div>
+                            <div class="feature-text">
+                                <div class="feature-title">Design Responsive Premium</div>
+                                <div class="feature-desc">Design modern et professionnel sur tous les appareils</div>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">📄</div>
+                            <div class="feature-text">
+                                <div class="feature-title">Pages Illimitées</div>
+                                <div class="feature-desc">Créez autant de pages que vous le souhaitez</div>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">🛒</div>
+                            <div class="feature-text">
+                                <div class="feature-title">E-commerce Intégré</div>
+                                <div class="feature-desc">Vendez vos produits en ligne avec panier et paiement</div>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">🔍</div>
+                            <div class="feature-text">
+                                <div class="feature-title">SEO Avancé</div>
+                                <div class="feature-desc">Optimisation complète pour les moteurs de recherche</div>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">🔒</div>
+                            <div class="feature-text">
+                                <div class="feature-title">SSL/HTTPS + Firewall</div>
+                                <div class="feature-desc">Sécurité maximale et protection contre les attaques</div>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">💬</div>
+                            <div class="feature-text">
+                                <div class="feature-title">Chat en Temps Réel</div>
+                                <div class="feature-desc">Communiquez avec vos clients en direct</div>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">🔐</div>
+                            <div class="feature-text">
+                                <div class="feature-title">Espace Client</div>
+                                <div class="feature-desc">Vos clients peuvent créer un compte et voir leurs commandes</div>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">📊</div>
+                            <div class="feature-text">
+                                <div class="feature-title">Dashboard Avancé</div>
+                                <div class="feature-desc">Statistiques détaillées et rapports de ventes</div>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">📧</div>
+                            <div class="feature-text">
+                                <div class="feature-title">Newsletters</div>
+                                <div class="feature-desc">Créez et envoyez des newsletters à vos clients</div>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">🎨</div>
+                            <div class="feature-text">
+                                <div class="feature-title">Personnalisation Complète</div>
+                                <div class="feature-desc">Design sur mesure selon vos besoins</div>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">🔄</div>
+                            <div class="feature-text">
+                                <div class="feature-title">Maintenance Incluse</div>
+                                <div class="feature-desc">Nous gérons les mises à jour et la sécurité</div>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">🚀</div>
+                            <div class="feature-text">
+                                <div class="feature-title">Livraison Express</div>
+                                <div class="feature-desc">3 à 5 jours de délai</div>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">📱</div>
+                            <div class="feature-text">
+                                <div class="feature-title">Application Mobile</div>
+                                <div class="feature-desc">Version mobile optimisée et progressive</div>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">🆘</div>
+                            <div class="feature-text">
+                                <div class="feature-title">Support 24/7</div>
+                                <div class="feature-desc">Assistance prioritaire par email et téléphone</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="package-cta">
+                        <button class="btn-package" onclick="goToOrder()">Commander Pro</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BENEFITS ===== -->
+    <section class="benefits-section">
+        <h2 class="section-title" style="color: white;">Pourquoi Choisir WebEnter ?</h2>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">⚡</div>
+                <div class="benefit-title">Livraison Rapide</div>
+                <p>Votre site en ligne en 3 à 5 jours maximum</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">💰</div>
+                <div class="benefit-title">Prix Imbattable</div>
+                <p>Packs 49€ et 99€ tout compris, pas de frais cachés</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🎨</div>
+                <div class="benefit-title">Design Moderne</div>
+                <p>Sites professionnels et tendances, optimisés pour la conversion</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🔒</div>
+                <div class="benefit-title">Sécurité Maximale</div>
+                <p>SSL, firewall, sauvegardes automatiques inclus</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🚀</div>
+                <div class="benefit-title">Performance</div>
+                <p>Sites ultra-rapides, optimisés pour Google</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🆘</div>
+                <div class="benefit-title">Support Client</div>
+                <p>Équipe réactive disponible par email et téléphone</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROCESS ===== -->
+    <section id="process" class="process-section">
+        <h2 class="section-title">Comment Ça Marche ?</h2>
+        <div class="process-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Créer un Compte</h3>
+                <p>Inscrivez-vous gratuitement en quelques clics avec votre email et les infos de votre entreprise</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Choisir un Package</h3>
+                <p>Sélectionnez Express (49€) ou Pro (99€) selon vos besoins</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Remplir le Questionnaire</h3>
+                <p>Décrivez votre entreprise, vos objectifs et vos préférences en design</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Nous Créons</h3>
+                <p>Notre équipe développe votre site pendant 3 à 5 jours</p>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <h3>Chat en Temps Réel</h3>
+                <p>Communiquez avec notre équipe pendant tout le processus</p>
+            </div>
+            <div class="step">
+                <div class="step-number">6</div>
+                <h3>Livraison</h3>
+                <p>Votre site est en ligne ! Accédez à votre dashboard client</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section id="faq" class="faq-section">
+        <h2 class="section-title">Questions Fréquemment Posées</h2>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Quelle est la différence entre Express et Pro ?</span>
+                <span>+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Le package Express (49€) inclut un site professionnel avec 5 pages et les fonctionnalités essentielles. Le package Pro (99€) ajoute l'e-commerce, pages illimitées, chat en temps réel, espace client, et support prioritaire.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Combien de temps pour avoir mon site ?</span>
+                <span>+</span>
+            </div>
+            <div class="faq-answer">
+                <p>En général 3 à 5 jours à partir de la réception de votre commande validée. Vous pouvez suivre la progression via votre compte client.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Puis-je modifier mon site après sa livraison ?</span>
+                <span>+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Bien sûr ! Vous avez accès à un tableau de bord pour modifier textes, images, pages. Pour des modifications plus complètes, contactez notre support.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Est-ce que le site est optimisé pour Google ?</span>
+                <span>+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Oui, tous nos sites sont développés selon les meilleures pratiques SEO : structure claire, meta tags optimisés, performance, responsive design. Le package Pro inclut une optimisation SEO complète.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Y a-t-il des frais cachés ?</span>
+                <span>+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Non, jamais ! Le prix affiché (49€ ou 99€) est tout compris. SSL, maintenance et support sont inclus pour la première année.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>🚀 WebEnter</h4>
+                <p>Création de sites internet professionnels. Packages Express et Pro à partir de 49€.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Légal</h4>
+                <ul>
+                    <li><a href="#">Mentions Légales</a></li>
+                    <li><a href="#">Conditions d'Utilisation</a></li>
+                    <li><a href="#">Politique de Confidentialité</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 WebEnter. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        function goToRegister() {
+            window.location.href = '/client/register';
+        }
+
+        function goToOrder() {
+            window.location.href = '/order-choice.html';
+        }
+
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            answer.classList.toggle('open');
+            element.querySelector('span:last-child').textContent = 
+                answer.classList.contains('open') ? '−' : '+';
+        }
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
