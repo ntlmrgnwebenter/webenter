@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Commandez votre site internet professionnel - WebEnter">
+    <title>Commander - WebEnter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .form-content {
+            padding: 40px;
+        }
+
+        .package-selection {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .package-option {
+            border: 3px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .package-option:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .package-option.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        }
+
+        .package-option input[type="radio"] {
+            display: none;
+        }
+
+        .package-name {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .package-price {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .package-features {
+            text-align: left;
+            font-size: 0.9em;
+            color: #4a5568;
+        }
+
+        .package-features div {
+            margin-bottom: 5px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-section h2 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .error {
+            padding: 12px;
+            background: #fee;
+            border-left: 4px solid #fc8181;
+            color: #742a2a;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success {
+            padding: 12px;
+            background: #e6f9f0;
+            border-left: 4px solid #48bb78;
+            color: #22543d;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 10px;
+            color: #718096;
+        }
+
+        @media (max-width: 768px) {
+            .package-selection {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .form-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📝 Commander votre Site</h1>
+            <p>Remplissez le formulaire ci-dessous pour passer commande</p>
+        </div>
+
+        <div class="form-content">
+            <div class="error" id="errorMsg"></div>
+            <div class="success" id="successMsg"></div>
+
+            <form id="orderForm">
+                <!-- CHOIX DU PACKAGE -->
+                <div class="form-section">
+                    <h2>📦 Choisissez votre Package</h2>
+                    <div class="package-selection">
+                        <label class="package-option" for="package-express">
+                            <input type="radio" name="package" id="package-express" value="express" required>
+                            <div class="package-name">Express</div>
+                            <div class="package-price">49€</div>
+                            <div class="package-features">
+                                <div>✓ 5 pages</div>
+                                <div>✓ Design moderne</div>
+                                <div>✓ Responsive</div>
+                                <div>✓ SEO de base</div>
+                            </div>
+                        </label>
+
+                        <label class="package-option" for="package-pro">
+                            <input type="radio" name="package" id="package-pro" value="pro">
+                            <div class="package-name">Pro</div>
+                            <div class="package-price">99€</div>
+                            <div class="package-features">
+                                <div>✓ Pages illimitées</div>
+                                <div>✓ E-commerce</div>
+                                <div>✓ Chat temps réel</div>
+                                <div>✓ SEO complet</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- INFORMATIONS PERSONNELLES -->
+                <div class="form-section">
+                    <h2>👤 Vos Informations</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">Prénom *</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Nom *</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" placeholder="votre@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Téléphone</label>
+                        <input type="tel" id="phone" name="phone" placeholder="06 12 34 56 78">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Adresse</label>
+                        <input type="text" id="address" name="address" placeholder="123 rue de la Paix">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">Ville</label>
+                            <input type="text" id="city" name="city" placeholder="Paris">
+                        </div>
+                        <div class="form-group">
+                            <label for="postalCode">Code Postal</label>
+                            <input type="text" id="postalCode" name="postalCode" placeholder="75001">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INFORMATIONS ENTREPRISE -->
+                <div class="form-section">
+                    <h2>🏢 Votre Entreprise</h2>
+                    <div class="form-group">
+                        <label for="businessName">Nom de l'Entreprise *</label>
+                        <input type="text" id="businessName" name="businessName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="businessType">Type d'Activité *</label>
+                        <select id="businessType" name="businessType" required>
+                            <option value="">Sélectionnez...</option>
+                            <option value="commerce">Commerce / Boutique</option>
+                            <option value="service">Service / Conseil</option>
+                            <option value="restaurant">Restaurant / Café</option>
+                            <option value="sante">Santé / Bien-être</option>
+                            <option value="artisan">Artisan</option>
+                            <option value="tech">Tech / Digital</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description de votre Entreprise *</label>
+                        <textarea id="description" name="description" placeholder="Décrivez votre activité, vos services/produits..." required></textarea>
+                    </div>
+                </div>
+
+                <!-- INFORMATIONS SITE WEB -->
+                <div class="form-section">
+                    <h2>🌐 Votre Site Web</h2>
+                    <div class="form-group">
+                        <label for="specialRequests">Informations Complémentaires</label>
+                        <textarea id="specialRequests" name="specialRequests" placeholder="Décrivez votre projet, vos besoins spécifiques..."></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">🚀 Envoyer ma Commande</button>
+                <div class="loading" id="loading">
+                    ⏳ Envoi de votre commande...
+                </div>
+            </form>
+
+            <div class="back-link">
+                <a href="/">← Retour à l'accueil</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Récupérer le prix du package sélectionné
+        function getPackagePrice(packageName) {
+            if (packageName === 'express') return 49;
+            if (packageName === 'pro') return 99;
+            return 0;
+        }
+
+        // Charger les données du profil si connecté
+        async function loadProfileData() {
+            try {
+                const response = await fetch('/api/client/check');
+                const data = await response.json();
+                
+                if (data.authenticated) {
+                    // Pré-remplir avec les données du profil
+                    document.getElementById('firstName').value = data.client.firstName || '';
+                    document.getElementById('lastName').value = data.client.lastName || '';
+                    document.getElementById('email').value = data.client.email || '';
+                    
+                    // Charger aussi les infos supplémentaires si disponibles
+                    try {
+                        const profileRes = await fetch('/api/client/profile');
+                        const profile = await profileRes.json();
+                        document.getElementById('phone').value = profile.phone || '';
+                        document.getElementById('businessName').value = profile.businessName || '';
+                        document.getElementById('address').value = profile.address || '';
+                        document.getElementById('city').value = profile.city || '';
+                        document.getElementById('postalCode').value = profile.postalCode || '';
+                    } catch (e) {
+                        // Les champs optionnels peuvent ne pas charger
+                        console.log('Infos additionnelles non disponibles');
+                    }
+                }
+            } catch (error) {
+                console.log('Non connecté, formulaire vide');
+            }
+        }
+
+        // Sélection package visuelle
+        document.querySelectorAll('.package-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.package-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                this.querySelector('input[type="radio"]').checked = true;
+            });
+        });
+
+        // Soumission formulaire
+        document.getElementById('orderForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const packageSelected = document.querySelector('input[name="package"]:checked')?.value;
+            
+            const formData = {
+                pack: packageSelected,
+                firstName: document.getElementById('firstName').value.trim(),
+                lastName: document.getElementById('lastName').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                businessName: document.getElementById('businessName').value.trim(),
+                businessType: document.getElementById('businessType').value,
+                address: document.getElementById('address').value.trim(),
+                city: document.getElementById('city').value.trim(),
+                postalCode: document.getElementById('postalCode').value.trim(),
+                description: document.getElementById('description').value.trim(),
+                objectives: document.getElementById('specialRequests').value.trim(),
+                price: getPackagePrice(packageSelected)
+            };
+
+            if (!formData.pack) {
+                showError('Veuillez sélectionner un package');
+                return;
+            }
+
+            document.getElementById('errorMsg').style.display = 'none';
+            document.getElementById('successMsg').style.display = 'none';
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('loading').style.display = 'block';
+
+            try {
+                const response = await fetch('/api/orders', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showSuccess('✅ Commande envoyée avec succès ! Nous vous contacterons très bientôt.');
+                    document.getElementById('orderForm').reset();
+                    document.querySelectorAll('.package-option').forEach(opt => opt.classList.remove('selected'));
+                    
+                    setTimeout(() => {
+                        window.location.href = '/client/dashboard';
+                    }, 3000);
+                } else {
+                    showError(data.error || 'Erreur lors de l\'envoi de la commande');
+                    document.getElementById('submitBtn').disabled = false;
+                }
+            } catch (error) {
+                showError('Erreur réseau. Veuillez réessayer.');
+                console.error('Erreur:', error);
+                document.getElementById('submitBtn').disabled = false;
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+            }
+        });
+
+        function showError(message) {
+            const errorMsg = document.getElementById('errorMsg');
+            errorMsg.textContent = message;
+            errorMsg.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showSuccess(message) {
+            const successMsg = document.getElementById('successMsg');
+            successMsg.textContent = message;
+            successMsg.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Charger les données au démarrage
+        window.addEventListener('load', () => {
+            loadProfileData();
+        });
+    </script>
+</body>
+</html>

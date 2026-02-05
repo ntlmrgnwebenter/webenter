@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Créer un compte WebEnter pour commander votre site internet professionnel">
+    <title>Créer un Compte Client - WebEnter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #718096;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .password-requirements {
+            background: #fffef0;
+            border-left: 4px solid #ffd700;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+
+        .requirement {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            color: #7d6608;
+        }
+
+        .requirement-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #ffd700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 0.8em;
+        }
+
+        .requirement.valid .requirement-icon {
+            background: #48bb78;
+            border-color: #48bb78;
+            color: white;
+        }
+
+        .requirement.valid {
+            color: #22543d;
+        }
+
+        .error {
+            padding: 12px;
+            background: #fee;
+            border-left: 4px solid #fc8181;
+            color: #742a2a;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success {
+            padding: 12px;
+            background: #e6f9f0;
+            border-left: 4px solid #48bb78;
+            color: #22543d;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 1.1em;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .back-link a {
+            color: #718096;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 10px;
+            color: #718096;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📝 Créer un Compte</h1>
+            <p>Rejoignez WebEnter et commencez votre projet</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Après inscription, accédez à notre formulaire de commande</p>
+        </div>
+
+        <div class="error" id="errorMsg"></div>
+        <div class="success" id="successMsg"></div>
+
+        <form id="registerForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">Prénom *</label>
+                    <input type="text" id="firstName" name="firstName" required autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Nom *</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" placeholder="votre@email.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="businessName">Nom de l'Entreprise *</label>
+                <input type="text" id="businessName" name="businessName" placeholder="Ma Super Entreprise" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mot de Passe *</label>
+                <input type="password" id="password" name="password" placeholder="Choisissez un mot de passe sécurisé" required>
+            </div>
+
+            <div class="password-requirements" id="passwordRequirements">
+                <div class="requirement" id="req-length">
+                    <div class="requirement-icon">○</div>
+                    <span>Minimum 6 caractères</span>
+                </div>
+                <div class="requirement" id="req-uppercase">
+                    <div class="requirement-icon">○</div>
+                    <span>Au moins 1 majuscule</span>
+                </div>
+                <div class="requirement" id="req-lowercase">
+                    <div class="requirement-icon">○</div>
+                    <span>Au moins 1 minuscule</span>
+                </div>
+                <div class="requirement" id="req-number">
+                    <div class="requirement-icon">○</div>
+                    <span>Au moins 1 chiffre</span>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">Créer mon Compte</button>
+            <div class="loading" id="loading">
+                ⏳ Création du compte...
+            </div>
+            <div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
+                <p style="color: #718096; margin-bottom: 15px;">Ou passez une commande sans créer de compte</p>
+                <a href="/order-visitor.html" class="btn-package" style="background: #48bb78; color: white; padding: 12px 30px; border-radius: 8px; text-decoration: none; display: inline-block; font-weight: 600;">📝 Commander en tant que visiteur</a>
+            </div>
+        </form>
+
+        <div class="login-link">
+            <p>Vous avez déjà un compte ? <a href="/client/login">Se connecter</a></p>
+        </div>
+
+        <div class="back-link">
+            <a href="/">← Retour à l'accueil</a>
+        </div>
+    </div>
+
+    <script>
+        const passwordInput = document.getElementById('password');
+        const form = document.getElementById('registerForm');
+        const errorMsg = document.getElementById('errorMsg');
+        const successMsg = document.getElementById('successMsg');
+        const submitBtn = document.getElementById('submitBtn');
+        const loading = document.getElementById('loading');
+
+        // Validation du mot de passe en temps réel
+        passwordInput.addEventListener('input', function() {
+            const password = this.value;
+            
+            const requirements = {
+                length: password.length >= 6,
+                uppercase: /[A-Z]/.test(password),
+                lowercase: /[a-z]/.test(password),
+                number: /\d/.test(password)
+            };
+
+            updateRequirement('length', requirements.length);
+            updateRequirement('uppercase', requirements.uppercase);
+            updateRequirement('lowercase', requirements.lowercase);
+            updateRequirement('number', requirements.number);
+
+            const allValid = Object.values(requirements).every(v => v);
+            submitBtn.disabled = !allValid;
+        });
+
+        function updateRequirement(type, isValid) {
+            const element = document.getElementById(`req-${type}`);
+            if (isValid) {
+                element.classList.add('valid');
+                element.querySelector('.requirement-icon').textContent = '✓';
+            } else {
+                element.classList.remove('valid');
+                element.querySelector('.requirement-icon').textContent = '○';
+            }
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const businessName = document.getElementById('businessName').value.trim();
+            const password = document.getElementById('password').value;
+
+            errorMsg.style.display = 'none';
+            successMsg.style.display = 'none';
+            submitBtn.disabled = true;
+            loading.style.display = 'block';
+
+            try {
+                const response = await fetch('/api/client/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        firstName,
+                        lastName,
+                        email,
+                        businessName,
+                        password
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    successMsg.textContent = '✅ Compte créé avec succès ! Redirection...';
+                    successMsg.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        window.location.href = '/client/dashboard';
+                    }, 2000);
+                } else {
+                    errorMsg.textContent = data.error || 'Erreur lors de la création du compte';
+                    errorMsg.style.display = 'block';
+                    submitBtn.disabled = false;
+                }
+            } catch (error) {
+                errorMsg.textContent = 'Erreur réseau. Veuillez réessayer.';
+                errorMsg.style.display = 'block';
+                submitBtn.disabled = false;
+            } finally {
+                loading.style.display = 'none';
+            }
+        });
+
+        // Disable submit button initially
+        submitBtn.disabled = true;
+    </script>
+</body>
+</html>

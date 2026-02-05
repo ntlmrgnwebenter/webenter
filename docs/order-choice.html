@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Commander votre site web - WebEnter">
+    <title>Commander - WebEnter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            max-width: 600px;
+            width: 100%;
+            padding: 50px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #2d3748;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            color: #718096;
+            font-size: 1.1em;
+            margin-bottom: 50px;
+        }
+
+        .options {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .option-card {
+            flex: 1;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            border: 3px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 40px 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .option-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .option-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .option-desc {
+            color: #718096;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .divider {
+            margin: 40px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e2e8f0;
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 20px;
+            position: relative;
+            color: #718096;
+            font-weight: 600;
+        }
+
+        .visitor-option {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .visitor-option h3 {
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .visitor-option p {
+            color: #718096;
+            margin-bottom: 20px;
+        }
+
+        .btn-secondary {
+            background: #48bb78;
+        }
+
+        .btn-secondary:hover {
+            background: #38a169;
+        }
+
+        .back-link {
+            margin-top: 30px;
+        }
+
+        .back-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 30px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .options {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 Commander votre Site</h1>
+        <p class="subtitle">Choisissez comment continuer</p>
+
+        <div class="options">
+            <div class="option-card" onclick="window.location.href='/client/login'">
+                <div class="option-icon">👤</div>
+                <div class="option-title">J'ai un compte</div>
+                <div class="option-desc">Se connecter pour accéder au formulaire de commande</div>
+            </div>
+
+            <div class="option-card" onclick="window.location.href='/client/register'">
+                <div class="option-icon">📝</div>
+                <div class="option-title">Créer un compte</div>
+                <div class="option-desc">Nouveau client ? Créez votre compte gratuitement</div>
+            </div>
+        </div>
+
+        <div class="divider">
+            <span>OU</span>
+        </div>
+
+        <div class="visitor-option">
+            <h3>🚀 Commander sans compte</h3>
+            <p>Passez une commande rapide sans créer de compte</p>
+            <button class="btn btn-secondary" onclick="window.location.href='/order-visitor.html'">
+                Commander en tant que visiteur
+            </button>
+        </div>
+
+        <div class="back-link">
+            <a href="/">← Retour à l'accueil</a>
+        </div>
+    </div>
+</body>
+</html>
