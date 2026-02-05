@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Espace Client - WebEnter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f7fafc;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header h1 {
+            font-size: 1.8em;
+        }
+
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .orders-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .order-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .order-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .order-card.selected {
+            border: 3px solid #667eea;
+        }
+
+        .order-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+        }
+
+        .order-id {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .order-company {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        .order-body {
+            padding: 20px;
+        }
+
+        .order-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            font-size: 0.85em;
+            color: #718096;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: #fef5e7;
+            color: #7d6608;
+        }
+
+        .status-confirmed {
+            background: #e6f3ff;
+            color: #1a5490;
+        }
+
+        .status-completed {
+            background: #e6f9f0;
+            color: #22543d;
+        }
+
+        .chat-section {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            font-weight: 600;
+        }
+
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f9fafb;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message.admin {
+            align-items: flex-start;
+        }
+
+        .message.client {
+            align-items: flex-end;
+        }
+
+        .message-content {
+            max-width: 80%;
+            padding: 12px 15px;
+            border-radius: 10px;
+            word-wrap: break-word;
+        }
+
+        .message.admin .message-content {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+
+        .message.client .message-content {
+            background: #667eea;
+            color: white;
+        }
+
+        .message-time {
+            font-size: 0.75em;
+            color: #718096;
+            margin-top: 5px;
+        }
+
+        .chat-input-area {
+            padding: 15px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .chat-input-area input:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        .chat-input-area button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .chat-input-area button:hover {
+            background: #5a67d8;
+        }
+
+        .files-section {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .files-section h2 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .files-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .file-item {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .file-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .file-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .file-name {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 10px;
+            word-break: break-word;
+        }
+
+        .file-date {
+            font-size: 0.85em;
+            color: #718096;
+            margin-bottom: 15px;
+        }
+
+        .download-btn {
+            background: #48bb78;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .download-btn:hover {
+            background: #38a169;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #718096;
+        }
+
+        .empty-state-icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+        }
+
+        .no-order-selected {
+            background: white;
+            border-radius: 15px;
+            padding: 60px 20px;
+            text-align: center;
+            color: #718096;
+        }
+
+        @media (max-width: 1024px) {
+            .orders-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chat-section {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>👤 Mon Espace Client</h1>
+            <button class="logout-btn" onclick="logout()">Déconnexion</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="orders-grid" id="ordersGrid">
+            <div class="empty-state">
+                <div class="empty-state-icon">⏳</div>
+                <p>Chargement de vos commandes...</p>
+            </div>
+        </div>
+
+        <div id="chatSection" style="display: none;">
+            <div class="chat-section">
+                <div class="chat-header">💬 Chat avec nos équipes</div>
+                <div class="messages-container" id="messagesContainer">
+                    <div class="empty-state">
+                        <p>Aucun message pour le moment</p>
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="messageInput" placeholder="Votre message..." maxlength="500">
+                    <button onclick="sendMessage()">Envoyer</button>
+                </div>
+            </div>
+
+            <div class="files-section">
+                <h2>📦 Fichiers livrés</h2>
+                <div class="files-list" id="filesList">
+                    <div class="empty-state">
+                        <p>Aucun fichier pour le moment</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="noOrderSelected" class="no-order-selected">
+            <h2>Sélectionnez une commande pour voir les détails</h2>
+            <p style="margin-top: 10px;">Cliquez sur l'une de vos commandes à gauche</p>
+        </div>
+    </div>
+
+    <script>
+        let currentOrder = null;
+        let orders = [];
+
+        async function checkAuth() {
+            try {
+                const response = await fetch('/api/client/check');
+                const data = await response.json();
+                if (!data.authenticated) {
+                    window.location.href = '/client/login';
+                }
+            } catch (error) {
+                window.location.href = '/client/login';
+            }
+        }
+
+        async function loadOrders() {
+            try {
+                const response = await fetch('/api/client/orders');
+                orders = await response.json();
+
+                if (!Array.isArray(orders) || orders.length === 0) {
+                    document.getElementById('ordersGrid').innerHTML = `
+                        <div class="empty-state" style="grid-column: 1/-1;">
+                            <div class="empty-state-icon">📦</div>
+                            <h3>Aucune commande</h3>
+                            <p>Vous n'avez pas encore de commandes</p>
+                            <a href="/client/order" style="color: #667eea; text-decoration: none; font-weight: 600; margin-top: 15px; display: inline-block;">
+                                ➜ Passer une commande maintenant
+                            </a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const html = orders.map(order => `
+                    <div class="order-card ${currentOrder?.id === order.id ? 'selected' : ''}" onclick="selectOrder(${order.id})">
+                        <div class="order-header">
+                            <div class="order-id">Commande #${order.id}</div>
+                            <div class="order-company">${order.businessName}</div>
+                        </div>
+                        <div class="order-body">
+                            <div class="order-info">
+                                <div class="info-item">
+                                    <span class="info-label">📅 Date</span>
+                                    <span class="info-value">${new Date(order.createdAt).toLocaleDateString('fr-FR')}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">🏷️ Pack</span>
+                                    <span class="info-value">${order.pack === 'express' ? '⚡ Express (49€)' : '🌟 Pro (99€)'}</span>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="status-badge status-${order.confirmed ? (order.completed ? 'completed' : 'confirmed') : 'pending'}">
+                                    ${order.completed ? '✅ Terminée' : (order.confirmed ? '⭐ Confirmée' : '⏳ En cours')}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                document.getElementById('ordersGrid').innerHTML = html;
+            } catch (error) {
+                console.error('Erreur:', error);
+            }
+        }
+
+        function selectOrder(orderId) {
+            currentOrder = orders.find(o => o.id === orderId);
+            loadOrders();
+            loadChat();
+            loadFiles();
+            document.getElementById('chatSection').style.display = 'block';
+            document.getElementById('noOrderSelected').style.display = 'none';
+        }
+
+        async function loadChat() {
+            if (!currentOrder) return;
+            try {
+                const response = await fetch(`/api/client/order/${currentOrder.id}/messages`);
+                const messages = await response.json();
+                
+                const container = document.getElementById('messagesContainer');
+                if (!Array.isArray(messages) || messages.length === 0) {
+                    container.innerHTML = '<div class="empty-state"><p>Aucun message pour le moment</p></div>';
+                    return;
+                }
+
+                container.innerHTML = messages.map(msg => `
+                    <div class="message ${msg.type === 'admin' ? 'admin' : 'client'}">
+                        <div class="message-content">${msg.content}</div>
+                        <div class="message-time">${new Date(msg.createdAt).toLocaleTimeString('fr-FR')}</div>
+                    </div>
+                `).join('');
+
+                container.scrollTop = container.scrollHeight;
+            } catch (error) {
+                console.error('Erreur chat:', error);
+            }
+        }
+
+        async function loadFiles() {
+            if (!currentOrder) return;
+            try {
+                const response = await fetch(`/api/client/order/${currentOrder.id}/files`);
+                const files = await response.json();
+                
+                const container = document.getElementById('filesList');
+                if (!Array.isArray(files) || files.length === 0) {
+                    container.innerHTML = '<div class="empty-state"><p>Aucun fichier pour le moment</p></div>';
+                    return;
+                }
+
+                container.innerHTML = files.map(file => `
+                    <div class="file-item">
+                        <div class="file-icon">📦</div>
+                        <div class="file-name">${file.filename}</div>
+                        <div class="file-date">${new Date(file.uploadedAt).toLocaleDateString('fr-FR')}</div>
+                        <a href="/api/download/${file.id}" class="download-btn" download>
+                            ⬇️ Télécharger
+                        </a>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Erreur fichiers:', error);
+            }
+        }
+
+        async function sendMessage() {
+            if (!currentOrder) return;
+            const input = document.getElementById('messageInput');
+            const content = input.value.trim();
+            
+            if (!content) return;
+
+            try {
+                const response = await fetch(`/api/client/order/${currentOrder.id}/messages`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ content })
+                });
+
+                if (response.ok) {
+                    input.value = '';
+                    loadChat();
+                }
+            } catch (error) {
+                console.error('Erreur envoi:', error);
+            }
+        }
+
+        async function logout() {
+            if (confirm('Voulez-vous vraiment vous déconnecter ?')) {
+                await fetch('/api/client/logout', { method: 'POST' });
+                window.location.href = '/client/login';
+            }
+        }
+
+        // Auto-refresh des messages et fichiers
+        setInterval(() => {
+            if (currentOrder) {
+                loadChat();
+                loadFiles();
+            }
+        }, 3000);
+
+        // Initialisation
+        window.addEventListener('load', () => {
+            checkAuth();
+            loadOrders();
+        });
+
+        // Entrée pour envoyer message
+        document.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && document.getElementById('messageInput') === document.activeElement) {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
